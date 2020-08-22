@@ -30,7 +30,7 @@ class WorkerSignals(QObject):
     error = pyqtSignal(tuple)
     result = pyqtSignal(object)
     progress = pyqtSignal(int)
-
+#worker threads
 class Worker(QRunnable):
     def __init__(self, fn, *args, **kwargs):
         super(Worker, self).__init__()
@@ -54,27 +54,30 @@ class Worker(QRunnable):
             self.signals.result.emit(result)  # Return the result of the processing
         finally:
             self.signals.finished.emit()
+#set up main window
 class MainWindow(QtWidgets.QMainWindow, Ui_Dialog):
     def __init__(self, *args, obj=None, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
+        #setup error dialog
         error_dialog = QtWidgets.QErrorMessage()
+        
         self.threadpool = QThreadPool()
+        
         print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
+        
         super(MainWindow, self).__init__(*args, **kwargs)
         #setup ui layout
         self.setupUi(self)
-        #set window title
-        self.setWindowTitle("SSG Scouting App")
-        #event listener for button
+        #event listeners for buttons
         self.startButton.clicked.connect(self.startButtonClick)
         self.clearButton.clicked.connect(self.clearButtonClick)
 
     def print_output(self, s):
         print(s)
-        
+      
     def thread_complete(self):
         self.statusOutput.setText("Thread Complete")
-        #button click functions
+        
     def progress_fn(self, n):
         print("%d%% done" % n)
     #function that is called when generate button is clicked
