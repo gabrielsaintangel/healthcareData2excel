@@ -14,9 +14,12 @@ pandas==1.1.1
 pylint==2.5.3
 PyQt5==5.15.0
 PyQt5-sip==12.8.0
+PyQt5Designer==5.14.1
 python-dateutil==2.8.1
 pytz==2020.1
+pyzipcode==2.0.0
 requests==2.24.0
+selenium==3.141.0
 six==1.15.0
 toml==0.10.1
 urllib3==1.25.10
